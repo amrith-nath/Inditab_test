@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:inditab_test/views/constants/colors/colors.dart';
 
 import 'views/screens/splash/screen_splash.dart';
 
@@ -11,12 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      title: 'Inditab Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ScreenSplash(),
+          primarySwatch: Colors.deepPurple,
+          progressIndicatorTheme: ProgressIndicatorThemeData(
+            color: kPurple,
+          )),
+      debugShowCheckedModeBanner: false,
+      home: const ScreenSplash(),
     );
   }
 }
