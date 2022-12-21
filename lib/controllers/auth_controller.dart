@@ -23,7 +23,7 @@ class AuthController extends GetxController {
     if (user == null) {
       Get.offAll(
         () => ScreenAuth(),
-        transition: Transition.rightToLeft,
+        transition: Transition.leftToRight,
         duration: const Duration(milliseconds: 400),
       );
     } else {
