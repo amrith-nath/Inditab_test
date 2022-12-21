@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inditab_test/controllers/utils/utils.dart';
 import 'package:inditab_test/views/constants/auth/firebase_auth.dart';
 import 'package:inditab_test/views/screens/auth/screen_auth.dart';
 import 'package:inditab_test/views/screens/home/screen_home.dart';
@@ -43,7 +44,7 @@ class AuthController extends GetxController {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } catch (e) {
-      log(e.toString());
+      Get.showSnackbar(snackBarRegisterError);
     }
   }
 
@@ -51,22 +52,29 @@ class AuthController extends GetxController {
     try {
       await auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (e) {
-      log(e.toString());
+      Get.showSnackbar(snackBarsignInError);
     }
   }
 
   void loginWithGmail() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      log('Step 1');
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      log('Step 2');
 
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken,
+        accessToken: googleAuth?.accessToken,
+      );
+      log('Step 3');
 
-    final credential = GoogleAuthProvider.credential(
-      idToken: googleAuth?.idToken,
-      accessToken: googleAuth?.accessToken,
-    );
-
-    await auth.signInWithCredential(credential);
+      await auth.signInWithCredential(credential);
+      log('Step 4');
+    } catch (e) {
+      Get.showSnackbar(snackBarGoogleError);
+    }
   }
 
   signOut() {
@@ -74,7 +82,7 @@ class AuthController extends GetxController {
       GoogleSignIn().signOut();
       auth.signOut();
     } catch (e) {
-      log(e.toString());
+      Get.showSnackbar(snackBarSignOutError);
     }
   }
 }

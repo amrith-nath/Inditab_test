@@ -119,7 +119,7 @@ class ScreenAuth extends StatelessWidget {
                       Get.to(
                         () => ScreenRegister(),
                         transition: Transition.downToUp,
-                        duration: const Duration(milliseconds: 400),
+                        duration: const Duration(milliseconds: 300),
                       );
                     },
                     child: const Text('Register'),
