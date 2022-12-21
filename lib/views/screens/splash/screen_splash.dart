@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inditab_test/controllers/auth_controller.dart';
 import 'package:inditab_test/views/constants/font/fonts.dart';
 import '../../constants/size/size.dart';
-import '../auth/screen_auth.dart';
 
 class ScreenSplash extends StatelessWidget {
   const ScreenSplash({super.key});
@@ -31,8 +31,6 @@ class ScreenSplash extends StatelessWidget {
 
   startNavigate() async {
     await Future.delayed(const Duration(seconds: 3));
-    Get.off(() => ScreenAuth(),
-        transition: Transition.rightToLeftWithFade,
-        duration: const Duration(milliseconds: 400));
+    Get.put(AuthController());
   }
 }
