@@ -15,118 +15,119 @@ class ScreenAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'SignIn',
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(10),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Lottie.asset(
-                'asset/lotties/53395-login.json',
-                fit: BoxFit.fill,
-                height: size.height / 2.7,
-              ),
-              kHeight,
-              inpiutWidget(
-                  icon: Icons.email_outlined,
-                  label: 'Email',
-                  controller: _emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Cant let the field empty';
-                    } else if (!value.contains('@') ||
-                        !value.contains('.') ||
-                        value.contains(' ')) {
-                      return 'Invalid email';
-                    }
-                    return null;
-                  }),
-              kHeight,
-              inpiutWidget(
-                  icon: Icons.password_outlined,
-                  label: 'Password',
-                  controller: _passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Cant let the field empty';
-                    } else if (value.length < 6) {
-                      return 'password must be more than 6 characters';
-                    } else if (value.contains(' ')) {
-                      return 'Invalid password format';
-                    }
-                    return null;
-                  }),
-              kHeight20,
-              SizedBox(
-                width: 300,
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      AuthController.authController.login(
-                        email: _emailController.text.trim(),
-                        password: _passwordController.text.trim(),
-                      );
-                    }
-                  },
-                  child: Text(
-                    'SignIn',
-                    style: KFonts.buttonTextStyle,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(10),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Text(
+                  'Log In',
+                  style: KFonts.splashTextStyle,
+                ),
+                Lottie.asset(
+                  'asset/lotties/53395-login.json',
+                  fit: BoxFit.fill,
+                  height: size.height / 2.7,
+                ),
+                inpiutWidget(
+                    icon: Icons.email_outlined,
+                    label: 'Email',
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Cant let the field empty';
+                      } else if (!value.contains('@') ||
+                          !value.contains('.') ||
+                          value.contains(' ')) {
+                        return 'Invalid email';
+                      }
+                      return null;
+                    }),
+                kHeight,
+                inpiutWidget(
+                    icon: Icons.password_outlined,
+                    label: 'Password',
+                    controller: _passwordController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Cant let the field empty';
+                      } else if (value.length < 6) {
+                        return 'password must be more than 6 characters';
+                      } else if (value.contains(' ')) {
+                        return 'Invalid password format';
+                      }
+                      return null;
+                    }),
+                kHeight20,
+                SizedBox(
+                  width: 300,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        AuthController.authController.login(
+                          email: _emailController.text.trim(),
+                          password: _passwordController.text.trim(),
+                        );
+                      }
+                    },
+                    child: Text(
+                      'Login',
+                      style: KFonts.buttonTextStyle,
+                    ),
                   ),
                 ),
-              ),
-              Text(
-                'OR',
-                style: KFonts.bodySmallTextStyle,
-              ),
-              SizedBox(
-                width: 300,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white),
-                    shape: MaterialStateProperty.all<OutlinedBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        side: const BorderSide(
-                          color: Colors.green,
+                Text(
+                  'OR',
+                  style: KFonts.bodySmallTextStyle,
+                ),
+                SizedBox(
+                  width: 300,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Colors.blue,
+                            width: 3,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    AuthController.authController.loginWithGmail();
-                  },
-                  child: Text(
-                    'SignIn with Google',
-                    style: KFonts.buttonTextGstyle,
+                    onPressed: () {
+                      AuthController.authController.loginWithGmail();
+                    },
+                    child: Text(
+                      'Login with Google',
+                      style: KFonts.buttonTextGstyle,
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?   ",
-                    style: KFonts.bodySmallTextStyle,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Get.to(
-                        () => ScreenRegister(),
-                        transition: Transition.downToUp,
-                        duration: const Duration(milliseconds: 300),
-                      );
-                    },
-                    child: const Text('Register'),
-                  )
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?   ",
+                      style: KFonts.bodySmallTextStyle,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.to(
+                          () => ScreenRegister(),
+                          transition: Transition.rightToLeftWithFade,
+                          duration: const Duration(milliseconds: 300),
+                        );
+                      },
+                      child: const Text('Register'),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

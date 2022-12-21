@@ -40,3 +40,23 @@ const snackBarRegisterError = GetSnackBar(
   borderRadius: 5,
   animationDuration: Duration(milliseconds: 400),
 );
+
+const snackBarUserError = GetSnackBar(
+  title: 'Error',
+  message: 'User Register Error',
+  backgroundColor: Colors.red,
+  duration: Duration(seconds: 2),
+  margin: EdgeInsets.all(10),
+  borderRadius: 5,
+  animationDuration: Duration(milliseconds: 400),
+);
+
+const snackBarLocationError = GetSnackBar(
+  title: 'Error',
+  message: 'Need Location permission to work',
+  backgroundColor: Colors.red,
+  duration: Duration(seconds: 2),
+  margin: EdgeInsets.all(10),
+  borderRadius: 5,
+  animationDuration: Duration(milliseconds: 400),
+);
